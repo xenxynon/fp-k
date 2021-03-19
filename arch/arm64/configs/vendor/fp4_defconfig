@@ -1642,6 +1642,7 @@ CONFIG_FPR_FPC=y
 # qrc device driver
 #
 # CONFIG_QRC is not set
+CONFIG_AW8695_HAPTIC=y
 
 #
 # SCSI device support
