@@ -1613,12 +1613,13 @@ CONFIG_UID_SYS_STATS=y
 # CONFIG_ECHO is not set
 # CONFIG_MISC_RTSX_PCI is not set
 # CONFIG_MISC_RTSX_USB is not set
-CONFIG_FPR_FPC=y
+# CONFIG_FPR_FPC is not set
 
 #
 # qrc device driver
 #
 # CONFIG_QRC is not set
+CONFIG_CHIPONE_FINGERPRINT=y
 CONFIG_AW8695_HAPTIC=y
 
 #
