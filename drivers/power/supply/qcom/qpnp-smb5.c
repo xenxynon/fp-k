@@ -981,6 +981,7 @@ static enum power_supply_property smb5_usb_props[] = {
 	POWER_SUPPLY_PROP_APSD_TIMEOUT,
 	POWER_SUPPLY_PROP_CHARGER_STATUS,
 	POWER_SUPPLY_PROP_INPUT_VOLTAGE_SETTLED,
+	POWER_SUPPLY_PROP_CONNECTOR_TEMP,
 };
 
 static int smb5_usb_get_prop(struct power_supply *psy,
@@ -1093,6 +1094,9 @@ static int smb5_usb_get_prop(struct power_supply *psy,
 		break;
 	case POWER_SUPPLY_PROP_CONNECTOR_HEALTH:
 		val->intval = smblib_get_prop_connector_health(chg);
+		break;
+	case POWER_SUPPLY_PROP_CONNECTOR_TEMP:
+		val->intval = chg->connector_temp;
 		break;
 	case POWER_SUPPLY_PROP_SCOPE:
 		rc = smblib_get_prop_scope(chg, val);
