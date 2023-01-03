@@ -63,6 +63,10 @@ static void scm_disable_sdi(void);
  * So the SDI cannot be re-enabled when it already by-passed.
  */
 static int download_mode = 0;
+
+static bool t2m_download_enable = 0;
+module_param_named(t2m_download_enable, t2m_download_enable, bool, 0664);
+
 static struct kobject dload_kobj;
 
 static int in_panic;
@@ -643,6 +647,10 @@ static int msm_restart_probe(struct platform_device *pdev)
 
 	if (scm_is_call_available(SCM_SVC_PWR, SCM_IO_DEASSERT_PS_HOLD) > 0)
 		scm_deassert_ps_hold_supported = true;
+
+	if (t2m_download_enable) {
+		download_mode = 1;
+	}
 
 	set_dload_mode(download_mode);
 	if (!download_mode)
