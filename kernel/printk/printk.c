@@ -58,6 +58,12 @@
 #include "braille.h"
 #include "internal.h"
 
+enum console_sta {
+	console_open = 0,
+	console_close = 1,
+};
+bool console_enabled_userspace = console_open;
+
 int console_printk[4] = {
 	CONSOLE_LOGLEVEL_DEFAULT,	/* console_loglevel */
 	MESSAGE_LOGLEVEL_DEFAULT,	/* default_message_loglevel */
@@ -1747,6 +1753,9 @@ static void call_console_drivers(const char *ext_text, size_t ext_len,
 
 	trace_console_rcuidle(text, len);
 
+	if (console_enabled_userspace >= console_close)
+		return;
+
 	if (!console_drivers)
 		return;
 
@@ -2180,6 +2189,12 @@ static int __init console_setup(char *str)
 			break;
 	idx = simple_strtoul(s, NULL, 10);
 	*s = 0;
+
+	if(!strcmp(buf,"ttyHSL") && (idx == 0))
+		console_enabled_userspace = console_close;
+
+	pr_err("Minns---buf=[%s]idx=[%d]options=[%s]flag=[%d]\n",
+	       buf, idx, options, console_enabled_userspace);
 
 	__add_preferred_console(buf, idx, options, brl_options);
 	console_set_on_cmdline = 1;
