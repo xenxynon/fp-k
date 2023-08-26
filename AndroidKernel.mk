@@ -7,7 +7,6 @@ INSTALLED_KERNEL_TARGET := $(PRODUCT_OUT)/kernel
 endif
 
 ifneq ($(TARGET_KERNEL_APPEND_DTB), true)
-$(info Using DTB Image)
 INSTALLED_DTBIMAGE_TARGET := $(PRODUCT_OUT)/dtb.img
 endif
 
@@ -29,7 +28,6 @@ TARGET_KERNEL_HEADER_ARCH := $(strip $(TARGET_KERNEL_HEADER_ARCH))
 ifeq ($(TARGET_KERNEL_HEADER_ARCH),)
 KERNEL_HEADER_ARCH := $(KERNEL_ARCH)
 else
-$(warning Forcing kernel header generation only for '$(TARGET_KERNEL_HEADER_ARCH)')
 KERNEL_HEADER_ARCH := $(TARGET_KERNEL_HEADER_ARCH)
 endif
 
@@ -62,7 +60,6 @@ ifeq ($(KERNEL_LLVM_SUPPORT), true)
     $(warning "Using sdllvm" $(KERNEL_LLVM_BIN))
   else
      KERNEL_LLVM_BIN := $(shell pwd)/$(CLANG) #Using aosp-llvm compiler
-    $(warning "Using aosp-llvm" $(KERNEL_LLVM_BIN))
   endif
 endif
 
@@ -116,7 +113,6 @@ else
 endif
 
 ifeq ($(TARGET_KERNEL_APPEND_DTB), true)
-$(info Using appended DTB)
 TARGET_PREBUILT_INT_KERNEL := $(TARGET_PREBUILT_INT_KERNEL)-dtb
 endif
 
