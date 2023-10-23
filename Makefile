@@ -532,7 +532,12 @@ else
 CLANG_FLAGS	+= --target=$(CLANG_TARGET_FLAGS)
 endif # CLANG_TARGET_FLAGS
 else
+ifneq ($(CLANG_TRIPLE),)
+# If CLANG_TRIPLE is set then make use of it.
+CLANG_FLAGS	+= --target=$(CLANG_TRIPLE)
+else # otherwise fall back to detection via prefix on binaries
 CLANG_FLAGS	+= --target=$(notdir $(CROSS_COMPILE:%-=%))
+endif # CLANG_TRIPLE
 endif # CROSS_COMPILE
 
 ifeq ($(LLVM_IAS),0)
