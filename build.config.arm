@@ -1,5 +1,4 @@
 ARCH=arm
-CROSS_COMPILE=arm-linux-gnueabi-
 
 FILES="
 arch/arm/boot/Image.gz
